@@ -1,3 +1,15 @@
 /target
 .cargo-ok
 .DS_Store
+
+# Project-specific files
+datasets/
+output/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook
+.ipynb_checkpoints
