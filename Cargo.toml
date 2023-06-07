@@ -1,6 +1,6 @@
 [package]
 name = "strif"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 description = "A tool to identify interruptions in short tandem repeats across the genome"
 repository = "https://github.com/rashidalabri/strif"
