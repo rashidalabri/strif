@@ -1,7 +1,9 @@
-# strif
-
+# STRIF 🧬
 [![Crates.io](https://img.shields.io/crates/v/strif.svg)](https://crates.io/crates/strif)
-[![CI](https://github.com/rashidalabri/strif/workflows/CI/badge.svg)](https://github.com/rashidalabri/strif/actions)
+<!-- [![CI](https://github.com/rashidalabri/strif/workflows/CI/badge.svg)](https://github.com/rashidalabri/strif/actions)
+ -->
+ 
+STRIF (Short Tandem Repeat Interruption Finder) is a tool for genome-wide identification of STR interruptions.
 
 ## Installation
 
@@ -11,21 +13,21 @@ Binaries for the tool can be found under the "[Releases](https://github.com/rash
 
 ### Cargo
 
-* Install the rust toolchain in order to have cargo installed by following
+Alternatively, STRIF can be built from source and installed using `cargo`:
+
+* Install the Rust toolchain in order to have `cargo` installed by following
   [this](https://www.rust-lang.org/tools/install) guide.
-* run `cargo install strif`
-
-
+* Run `cargo install strif`
 
 ## Usage
 
 ### Sequence-graph alignment
 
-To generate a sequence-graph alignment of your sample to STR loci, use [ExpansionHunter](https://github.com/Illumina/ExpansionHunter). The tool will produce a `.realigned.bam` file for each sample. Instructions for running ExpansionHunter can be found [here](https://github.com/Illumina/ExpansionHunter/blob/master/docs/03_Usage.md). 
+To generate a sequence-graph alignment of your sample, use [ExpansionHunter](https://github.com/Illumina/ExpansionHunter). The tool will produce a `.realigned.bam` file for each sample. Instructions for running ExpansionHunter can be found [here](https://github.com/Illumina/ExpansionHunter/blob/master/docs/03_Usage.md). 
 
 ### Extracting repeat sequences
 
-To extract repeat sequences from an [ExpansionHunter](https://github.com/Illumina/ExpansionHunter) BAMlet (`.realigned.bam`), run the following command. If the output is not specified, the output will be saved in the same directory as the BAMlet with a `.repeat_seqs.tsv` suffix.
+To extract repeat sequences from an ExpansionHunter BAMlets (`.realigned.bam` files), run the following command. If the output is not specified, the output will be saved in the same directory as the BAMlet with a `.repeat_seqs.tsv` suffix.
 
 ```
 strif extract <BAMLET> [OUTPUT] 
@@ -33,10 +35,12 @@ strif extract <BAMLET> [OUTPUT]
 
 ### Profiling STR interruptions
 
-To profile STR interruptions from extracted repeat sequences (the output of `strif extract`), run the following command. The STR catalog needs to be in the same format as [these catalogs](https://github.com/Illumina/RepeatCatalogs). If the output path is not specified, the output will be saved in the same directory as the repeat sequences file with a `.strif_profile.tsv` suffix.
+To profile STR interruptions from extracted repeat sequences, run the following command. The STR catalog needs to be in the same format as [these catalogs](https://github.com/Illumina/RepeatCatalogs). If the output path is not specified, the output will be saved in the same directory as the repeat sequences file with a `.strif_profile.tsv` suffix.
+
 ```
 strif profile [OPTIONS] <REPEAT_SEQS> <STR_CATALOG> [OUTPUT] [OUTPUT_ALIGNMENTS]
 ```
+
 #### Options
 ```
   -z                           Output visual alignments. Default is false
@@ -50,6 +54,7 @@ strif profile [OPTIONS] <REPEAT_SEQS> <STR_CATALOG> [OUTPUT] [OUTPUT_ALIGNMENTS]
 ### Merging STR interruption profiles
 
 To merge STR interruption profiles from multiple samples, run the following command. If the output path is not specified, the output will be saved in the same directory as the manifest file with a `.merged_profiles.tsv` suffix.
+
 ```
 strif merge [OPTIONS] <MANIFEST> <READ_DEPTHS> [OUTPUT]
 ```
@@ -119,7 +124,7 @@ python prioritize.py <merged_profile> <output_file> <sig_output_file>
 ```
 
 ### Generating validation datasets
-You can generate simulate repeat sequences to validate and test STRIF using `generate_validation_sets.py` in the `scripts` directory. The only argument is a path to a directory, such as `datasets/` where the generated datasets will be created.
+You can generate simulated repeat sequences to validate and test STRIF using `generate_validation_sets.py` in the `scripts` directory. The only argument is a path to a directory, such as `datasets/` where the generated datasets will be created.
 
 ```
 python generate_validation_sets.py <DATASET_DIR>
@@ -144,16 +149,18 @@ python generate_validation_sets.py <DATASET_DIR>
     - Dataset of interruptions that have substituted one or more repeat sequence bases
 
 ### Calculating performance metrics
-You can calculate metrics on the generated datasets using `metrics.py` in the `scripts` directory. The only argument is a path to a directory, such as `datasets/` where the generated datasets was created.
+
+You can calculate metrics on the generated datasets using `metrics.py` in the `scripts` directory. The only argument is a path to a directory, such as `datasets/` where the generated datasets were created.
 
 ```
 python metrics.py <DATASET_DIR>
 ```
 
-The script will output a file `overall_stats.tsv` in the dataset directory containing a summary of metrics on each dataset.
+The script will output a file `overall_stats.tsv` in the datasets directory containing a summary of metrics on each dataset.
 
 ### Optimizing alignment parameters
-You can find optimal aligning parameters for `strif profile` by running `optimize.py` in the `scripts` directory. The only argument is a path to a dataset. This will be any directory within the datasets directory. It is recommended to run this on `datasets/comprehensive_train`.
+
+You can find optimal alignment parameters for `strif profile` by running `optimize.py` in the `scripts` directory. The only argument is a path to a training dataset. This will be any directory within the datasets directory. It is recommended to run this on `datasets/comprehensive_train`.
 
 ```
 python optimize.py <DATASET_DIR>/<NAME_OF_DATASET>
