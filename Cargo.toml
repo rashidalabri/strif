@@ -10,7 +10,7 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 clap = { version = "4.2.1", features = ["derive"] }
-rust-htslib = { version = "0.43.1", default-features = false }
+rust-htslib = { version = "0.44.1", default-features = false }
 regex = "1"
 lazy_static = "1.4.0"
 log = "0.4.17"
