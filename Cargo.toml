@@ -13,7 +13,7 @@ clap = { version = "4.2.1", features = ["derive"] }
 rust-htslib = { version = "0.43.1", default-features = false }
 regex = "1"
 lazy_static = "1.4.0"
-log = "0.4.17"
+log = "0.4.20"
 anyhow = "1.0.71"
 stderrlog = "0.5.4"
 csv = "1.2.1"
